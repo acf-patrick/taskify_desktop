@@ -1,14 +1,17 @@
 #ifndef SERVICE_H
 #define SERVICE_H
 
+#include <QObject>
 #include <QFileInfo>
 
 #include "task.h"
 
 namespace taskify {
 
-class IService {
-protected:
+class IService : public QObject {
+    Q_OBJECT
+public:
+    explicit IService(QObject *parent) : QObject(parent) {}
     virtual ~IService() = default;
 
     virtual QString getBoardName() = 0;

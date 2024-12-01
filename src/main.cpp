@@ -1,8 +1,10 @@
 #include <QDir>
-#include <QFile>
-#include <QProcess>
+#include <QQmlContext>
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <memory>
+
+#include "taskify.h"
 
 int main(int argc, char *argv[])
 {
@@ -19,33 +21,26 @@ int main(int argc, char *argv[])
         return -1;
     }
 #endif
-/*
-    qDebug() << "TASKIFY_EXECUTABLE : " << taskifyExecutable;
 
-    QStringList taskifyArguments;
-    taskifyArguments
-        << "serve"
-        << "--port" << "8000";
+    qDebug() << "[INFO] taskify executable : " << taskifyExecutable;
 
-    QProcess taskify;
-    taskify.start(taskifyExecutable, taskifyArguments);
+    qmlRegisterType<taskify::Taskify>("com.example.taskify", 1, 0, "Taskify");
+    std::shared_ptr<taskify::IService> mainService = std::make_shared<taskify::Taskify>(taskifyExecutable);
 
-    if (taskify.waitForStarted()) {
-        qDebug() << "[INFO] Taskify server started";
-    } else {
-        qDebug() << "[ERROR] Failed to start taskify server";
-        return -1;
-    }
-*/
     QQmlApplicationEngine engine;
-    const QUrl mainQml(QStringLiteral("qrc:/main.qml"));
-    QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
-                     &app, [mainQml](QObject *obj, const QUrl &objUrl) {
-                         if (!obj && mainQml == objUrl)
-                             QCoreApplication::exit(-1);
-                     }, Qt::QueuedConnection);
+    {
+        const QUrl mainQml(QStringLiteral("qrc:/main.qml"));
+        QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
+            &app, [mainQml](QObject *obj, const QUrl &objUrl) {
+                if (!obj && mainQml == objUrl) {
+                    qDebug() << "[ERROR] failed to load main QML";
+                    QCoreApplication::exit(-1);
+                }
+            }, Qt::QueuedConnection);
+        engine.load(mainQml);
+    }
 
-    engine.load(mainQml);
+    engine.rootContext()->setContextProperty("taskify", mainService.get());
 
     return app.exec();
 }
