@@ -38,10 +38,10 @@ qt_add_qml_module(taskify_desktop
     URI taskify_desktop_qt
     VERSION 1.0
     QML_FILES
-    SOURCES src/service.h
-    SOURCES src/task.h
-    SOURCES
+    SOURCES src/task/task.h
     SOURCES src/taskify.h
+    SOURCES src/task/task_state.h
+    SOURCES src/taskify.cpp
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

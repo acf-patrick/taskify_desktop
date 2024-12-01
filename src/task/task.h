@@ -8,7 +8,6 @@
 namespace taskify {
 
 struct Task {
-
     enum class State {
         TODO,
         READY,

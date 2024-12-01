@@ -5,6 +5,7 @@
 #include <memory>
 
 #include "taskify.h"
+#include "task/task_state.h"
 
 int main(int argc, char *argv[])
 {
@@ -15,19 +16,26 @@ int main(int argc, char *argv[])
 #else
     const auto workingDir = QCoreApplication::applicationDirPath();
     const auto taskifyExecutable = QDir(workingDir).filePath(TASKIFY_EXECUTABLE_NAME);
+#endif
 
     if (!QFile::exists(taskifyExecutable)) {
         qDebug() << "[ERROR] Unable to find taskify executable";
         return -1;
     }
-#endif
 
     qDebug() << "[INFO] taskify executable : " << taskifyExecutable;
 
-    qmlRegisterType<taskify::Taskify>("com.example.taskify", 1, 0, "Taskify");
-    std::shared_ptr<taskify::IService> mainService = std::make_shared<taskify::Taskify>(taskifyExecutable);
+    // register meta types
+    {
+        taskify::Taskify::RegisterType();
+        taskify::TaskState::RegisterType();
+    }
 
     QQmlApplicationEngine engine;
+
+    taskify::Taskify taskify(taskifyExecutable);
+    engine.rootContext()->setContextProperty("taskify", &taskify);
+
     {
         const QUrl mainQml(QStringLiteral("qrc:/main.qml"));
         QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
@@ -39,8 +47,6 @@ int main(int argc, char *argv[])
             }, Qt::QueuedConnection);
         engine.load(mainQml);
     }
-
-    engine.rootContext()->setContextProperty("taskify", mainService.get());
 
     return app.exec();
 }

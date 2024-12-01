@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file alias="main.qml">src/qml/main.qml</file>
-        <file alias="component/TitleBar.qml">src/qml/component/TitleBar.qml</file>
+        <file alias="page/Home.qml">src/qml/page/Home.qml</file>
     </qresource>
 </RCC>

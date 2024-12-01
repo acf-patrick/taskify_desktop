@@ -1,18 +1,22 @@
-import QtQuick 2.15
-import QtQuick.Controls 2.15
-import "component"
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Controls.Material
 
 ApplicationWindow {
-    width: 640
-    height: 480
+    id: mainWindow
     minimumWidth: 640
     minimumHeight: 480
     visible: true
-    flags: Qt.FramelessWindowHint
+    title: "Taskify"
 
-    TitleBar {
-        anchors.left: parent.left
-        anchors.right: parent.right
-        height: 40
+    Material.theme: Material.Dark
+    Material.accent: Material.Purple
+
+    property alias loader: pageLoader
+
+    Loader {
+        id: pageLoader
+        anchors.fill: parent
+        source: "page/Home.qml"
     }
 }
