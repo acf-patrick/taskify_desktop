@@ -19,7 +19,7 @@ add_definitions(-DTASKIFY_EXECUTABLE_NAME="${TASKIFY_EXECUTABLE_NAME}")
 qt_add_resources(RESOURCES qml.qrc)
 
 qt_add_executable(taskify_desktop
-    main.cpp
+    src/main.cpp
     ${RESOURCES}
 )
 
@@ -38,6 +38,9 @@ qt_add_qml_module(taskify_desktop
     URI taskify_desktop_qt
     VERSION 1.0
     QML_FILES
+    SOURCES src/service.h
+    SOURCES src/task.h
+    SOURCES
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

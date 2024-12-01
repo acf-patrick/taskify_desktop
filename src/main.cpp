@@ -19,11 +19,13 @@ int main(int argc, char *argv[])
         return -1;
     }
 #endif
-
+/*
     qDebug() << "TASKIFY_EXECUTABLE : " << taskifyExecutable;
 
     QStringList taskifyArguments;
-    taskifyArguments << "serve";
+    taskifyArguments
+        << "serve"
+        << "--port" << "8000";
 
     QProcess taskify;
     taskify.start(taskifyExecutable, taskifyArguments);
@@ -34,7 +36,7 @@ int main(int argc, char *argv[])
         qDebug() << "[ERROR] Failed to start taskify server";
         return -1;
     }
-
+*/
     QQmlApplicationEngine engine;
     const QUrl mainQml(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,

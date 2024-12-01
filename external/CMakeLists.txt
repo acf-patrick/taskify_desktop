@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.16)
 # Define a custom target to build the Rust project executable
 add_custom_target(
     taskify ALL
-    COMMAND cargo build --release
+    COMMAND cargo build --release --package cli
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/taskify
     COMMENT "Building taskify main executable"
 )
