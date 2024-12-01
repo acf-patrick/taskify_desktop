@@ -21,10 +21,10 @@ jobs:
         run: git submodule update --recursive --init --depth 1
 
       - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y qt6-base-dev qt6-declarative-dev \
-                                  qt6-multimedia-dev cmake ninja-build g++ libgl1-mesa-dev
+        uses: jurplel/install-qt-action@v4
+        with:
+            version: '6.5'
+            host: 'linux'
 
       - name: Configure CMake
         run: |
