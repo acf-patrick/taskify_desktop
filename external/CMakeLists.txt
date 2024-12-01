@@ -8,14 +8,22 @@ add_custom_target(
     COMMENT "Building taskify main executable"
 )
 
-# Specify the output location of the Rust executable
-set(TASKIFY_EXECUTBALE ${CMAKE_CURRENT_SOURCE_DIR}/taskify/target/release/taskify)
+set(TASKIFY_EXECUTABLE_NAME taskify)
 
 if (WIN32)
-    set(TASKIFY_EXECUTBALE ${TASKIFY_EXECUTABLE}.exe)
+    set(TASKIFY_EXECUTABLE_NAME ${TASKIFY_EXECUTABLE_NAME}.exe)
 endif()
 
-set_property(GLOBAL PROPERTY TASKIFY_EXECUTABLE_PATH ${TASKIFY_EXECUTBALE})
+# Specify the output location of the Rust executable
+set(TASKIFY_EXECUTABLE ${CMAKE_CURRENT_SOURCE_DIR}/taskify/target/release/${TASKIFY_EXECUTABLE_NAME})
+
+set_property(
+    GLOBAL
+    PROPERTY TASKIFY_EXECUTABLE_PATH ${TASKIFY_EXECUTABLE})
+
+set_property(
+    GLOBAL
+    PROPERTY TASKIFY_EXECUTABLE_NAME ${TASKIFY_EXECUTABLE_NAME})
 
 # Make the path available to the main project
-add_custom_target(rust_exec DEPENDS taskify)
+add_custom_target(taskify_exec DEPENDS taskify)
