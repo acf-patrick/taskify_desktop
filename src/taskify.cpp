@@ -20,7 +20,7 @@ void Taskify::setBoardName(const QString& boardName)
     _boardName = boardName;
     emit boardNameChanged();
 }
-
+// target\release\taskify move -f ..\..\tests\foo.c -r Ly8gVE9ETyBDIGNvZGUgVXNlIGZvbyBmdW5jdGlvbiBoZXJl -s TODO -t READY
 QString Taskify::serializedTasks() const
 {
     QString tasks = R"([

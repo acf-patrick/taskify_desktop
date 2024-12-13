@@ -12,7 +12,7 @@ ApplicationWindow {
     Material.theme: Material.Dark
     Material.accent: Material.Purple
 
-    property alias loader: pageLoader
+    property alias source: pageLoader.source
 
     Loader {
         id: pageLoader

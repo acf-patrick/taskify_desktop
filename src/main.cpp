@@ -2,7 +2,6 @@
 #include <QQmlContext>
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include <memory>
 
 #include "taskify.h"
 #include "task/task_state.h"

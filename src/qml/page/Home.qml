@@ -1,8 +1,12 @@
-import QtQuick 2.15
+import QtQuick
+import QtQuick.Controls
 
 Item {
-    Text {
-        anchors.centerIn: parent
-        text: taskify.serializedTasks
+    Button {
+        text: "Click me"
+
+        onClicked: {
+            mainWindow.source = "page/second.qml"
+        }
     }
 }
